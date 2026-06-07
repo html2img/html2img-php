@@ -1,0 +1,11 @@
+parameters:
+    level: 8
+    paths:
+        - src
+        - tests
+    treatPhpDocTypesAsCertain: false
+    ignoreErrors:
+        # Guzzle's Middleware::history() accepts array|ArrayAccess by reference,
+        # which trips the by-ref variance check against our array-typed history.
+        - identifier: parameterByRef.type
+          path: tests/Pest.php

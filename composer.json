@@ -1,0 +1,59 @@
+{
+    "name": "html2img/html2img-php",
+    "description": "Official PHP client for the html2img.com API: render HTML or capture URLs as images.",
+    "type": "library",
+    "keywords": [
+        "html2img",
+        "html-to-image",
+        "screenshot",
+        "html-to-png",
+        "image-generation",
+        "api-client"
+    ],
+    "homepage": "https://html2img.com",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "html2img",
+            "homepage": "https://html2img.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/html2img/html2img-php/issues",
+        "source": "https://github.com/html2img/html2img-php",
+        "docs": "https://html2img.com/docs"
+    },
+    "require": {
+        "php": "^8.3",
+        "guzzlehttp/guzzle": "^7.0"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.18",
+        "pestphp/pest": "^3.5",
+        "phpstan/phpstan": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Html2img\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Html2img\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "pest",
+        "stan": "phpstan analyse",
+        "lint": "pint --test",
+        "format": "pint"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
