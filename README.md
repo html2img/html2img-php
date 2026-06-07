@@ -95,7 +95,6 @@ stylesheets and web fonts via `<link>` tags in the document head. See the
 [`html` parameter docs](https://html2img.com/docs/parameters/html) for the full input.
 
 ```php
-use Html2img\Enum\Format;
 use Html2img\Request\HtmlRequest;
 
 $response = $client->html(new HtmlRequest(
@@ -104,7 +103,6 @@ $response = $client->html(new HtmlRequest(
     width: 794,
     fullpage: true,
     dpi: 2,          // retina
-    format: Format::Png,
 ));
 ```
 
@@ -160,7 +158,6 @@ complete reference is in the [parameter docs](https://html2img.com/docs/paramete
 | `webhookUrl`       | string    | Switch to async delivery (see below).                        |
 | `msDelay`          | int       | Wait this many milliseconds after load before capturing (1 to 5000). |
 | `waitForSelector`  | string    | Wait until this CSS selector appears before capturing.       |
-| `format`           | `Format`  | `Format::Png` (default) or `Format::Pdf`.                    |
 
 `ScreenshotRequest` also accepts `selector` (string) to crop the capture to a
 single element. `HtmlRequest` does not, since you control the markup.

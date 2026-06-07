@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Html2img\Request;
 
-use Html2img\Enum\Format;
 use InvalidArgumentException;
 
 /**
@@ -27,7 +26,6 @@ final readonly class ScreenshotRequest
      * @param  string|null  $webhookUrl  Switch to async mode and POST the final image URL here once rendering finishes.
      * @param  int|null  $msDelay  Wait this many milliseconds after load before capturing (1 to 5000).
      * @param  string|null  $waitForSelector  Wait until this CSS selector appears in the DOM before capturing.
-     * @param  Format|null  $format  Output format. Defaults to PNG server-side.
      */
     public function __construct(
         public string $url,
@@ -40,7 +38,6 @@ final readonly class ScreenshotRequest
         public ?string $webhookUrl = null,
         public ?int $msDelay = null,
         public ?string $waitForSelector = null,
-        public ?Format $format = null,
     ) {
         Guard::dimension('width', $width);
         Guard::dimension('height', $height);
@@ -70,7 +67,6 @@ final readonly class ScreenshotRequest
             'webhook_url' => $this->webhookUrl,
             'ms_delay' => $this->msDelay,
             'wait_for_selector' => $this->waitForSelector,
-            'format' => $this->format?->value,
         ], static fn (mixed $value): bool => $value !== null);
     }
 }

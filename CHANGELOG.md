@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Readonly `RenderResponse` exposing `success`, `id`, `url`, `creditsRemaining`,
   the async `status` and `message` fields, the optional `template` slug, and the
   raw payload.
-- `Format` and `Endpoint` enums.
+- `Endpoint` enum.
 - Exception hierarchy mapping HTTP status codes to typed exceptions:
   authentication, validation, insufficient credits, not subscribed, not found,
   rate limit, timeout, server error and connection failure.
