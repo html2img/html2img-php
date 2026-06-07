@@ -1,13 +1,20 @@
 {
     "name": "html2img/html2img-php",
-    "description": "Official PHP client for the html2img.com API: render HTML or capture URLs as images.",
+    "description": "Official PHP SDK for the html2img HTML-to-image API: render HTML or CSS to PNG, screenshot live URLs, and generate images from templates, built on Guzzle.",
     "type": "library",
     "keywords": [
         "html2img",
         "html-to-image",
-        "screenshot",
         "html-to-png",
+        "html-to-pdf",
+        "screenshot",
+        "screenshot-api",
+        "url-to-image",
+        "og-image",
+        "open-graph",
         "image-generation",
+        "pdf",
+        "guzzle",
         "api-client"
     ],
     "homepage": "https://html2img.com",
@@ -15,13 +22,15 @@
     "authors": [
         {
             "name": "html2img",
+            "email": "info@html2img.com",
             "homepage": "https://html2img.com"
         }
     ],
     "support": {
         "issues": "https://github.com/html2img/html2img-php/issues",
         "source": "https://github.com/html2img/html2img-php",
-        "docs": "https://html2img.com/docs"
+        "docs": "https://html2img.com/docs",
+        "email": "info@html2img.com"
     },
     "require": {
         "php": "^8.3",
@@ -46,12 +55,29 @@
         "test": "pest",
         "stan": "phpstan analyse",
         "lint": "pint --test",
-        "format": "pint"
+        "format": "pint",
+        "check": [
+            "@lint",
+            "@stan",
+            "@test"
+        ]
+    },
+    "scripts-descriptions": {
+        "test": "Run the Pest test suite.",
+        "stan": "Run PHPStan static analysis.",
+        "lint": "Check code style with Pint.",
+        "format": "Fix code style with Pint.",
+        "check": "Run lint, static analysis and the test suite."
     },
     "config": {
         "sort-packages": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "1.x-dev"
         }
     },
     "minimum-stability": "stable",

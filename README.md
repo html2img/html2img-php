@@ -1,15 +1,29 @@
+[![html2img — HTML to image API, rendered in real Chrome](https://html2img.com/og-image.png)](https://html2img.com)
+
 # html2img PHP client
 
-The official PHP client for the [html2img.com](https://html2img.com) API. Render
-HTML you control into images, capture screenshots of live URLs, and render named
-templates, all returning a typed response object.
+[![Packagist Version](https://img.shields.io/packagist/v/html2img/html2img-php)](https://packagist.org/packages/html2img/html2img-php)
+[![PHP Version](https://img.shields.io/packagist/php-v/html2img/html2img-php)](https://packagist.org/packages/html2img/html2img-php)
+[![Total Downloads](https://img.shields.io/packagist/dt/html2img/html2img-php)](https://packagist.org/packages/html2img/html2img-php)
+[![License](https://img.shields.io/packagist/l/html2img/html2img-php)](LICENSE)
 
-Framework-agnostic and built on Guzzle. Works in plain PHP and in any framework.
+The official PHP client for the [html2img.com](https://html2img.com) API. Turn HTML and CSS into images, capture screenshots of live URLs, and render named templates, all returning a typed response object.
+
+Every render runs in real Chrome, so flexbox, grid, custom properties, web fonts and inline JavaScript behave exactly as they do in the browser. The package is framework-agnostic and built on Guzzle, so it works in plain PHP and inside any framework. The full API reference lives in the [documentation](https://html2img.com/docs).
+
+## What you can build
+
+- **Open Graph and social images**, generated per page or post. See the [Open Graph image template](https://html2img.com/templates/open-graph-image) and [Twitter/X post template](https://html2img.com/templates/twitter-post).
+- **Business documents** such as [invoices](https://html2img.com/templates/invoice-image), [receipts](https://html2img.com/templates/receipt-image), [event tickets](https://html2img.com/templates/event-ticket) and [certificates](https://html2img.com/templates/certificate-of-completion).
+- **Developer assets** such as [code screenshots](https://html2img.com/templates/code-screenshot) and [GitHub social previews](https://html2img.com/templates/github-social-preview).
+- **URL screenshots**, full page or cropped to a single element, with CSS injection to hide cookie banners and chat widgets before capture.
+
+Browse the [full template library](https://html2img.com/templates), or try the no-signup [browser tools](https://html2img.com/tools) to see the output before you write any code.
 
 ## Requirements
 
 - PHP 8.3 or newer
-- A html2img API key (the dashboard issues one per account)
+- A html2img API key, issued per account from your [dashboard](https://app.html2img.com/register)
 
 ## Installation
 
@@ -34,8 +48,7 @@ $response = $client->html(new HtmlRequest(
 echo $response->url; // https://i.html2img.com/abc123def456.png
 ```
 
-The API returns a JSON envelope containing the CDN URL of the generated image,
-not the raw bytes, so you can cache and re-serve it from your own infrastructure.
+The API returns a JSON envelope containing the CDN URL of the generated image, not the raw bytes, so you can cache and re-serve it from your own infrastructure. New to the API? Start with the [getting started guide](https://html2img.com/docs/getting-started).
 
 ## Configuration
 
@@ -51,7 +64,7 @@ $client = new Html2imgClient(
 );
 ```
 
-Authentication is sent on every request as the `X-API-Key` header.
+Authentication is sent on every request as the `X-API-Key` header. See the [authentication docs](https://html2img.com/docs/authentication) for issuing and rotating keys.
 
 ### Injecting your own Guzzle client
 
@@ -78,7 +91,8 @@ $client = new Html2imgClient('your-api-key', httpClient: $guzzle);
 
 `POST /api/html`. Send a complete HTML document and get back an image of the
 rendered result. Inline your CSS in a `<style>` block, or reference remote
-stylesheets and web fonts via `<link>` tags in the document head.
+stylesheets and web fonts via `<link>` tags in the document head. See the
+[`html` parameter docs](https://html2img.com/docs/parameters/html) for the full input.
 
 ```php
 use Html2img\Enum\Format;
@@ -98,7 +112,7 @@ $response = $client->html(new HtmlRequest(
 
 `POST /api/screenshot`. Fetch a public URL in a real browser and capture it.
 Use `selector` to crop to a single element, and `css` to hide cookie banners or
-chat widgets before the capture.
+chat widgets before the capture. See the [`url` parameter docs](https://html2img.com/docs/parameters/url).
 
 ```php
 use Html2img\Request\ScreenshotRequest;
@@ -116,7 +130,8 @@ $response = $client->screenshot(new ScreenshotRequest(
 ### Render a template
 
 `POST /api/v1/templates/{slug}`. Render one of your named templates from a JSON
-data payload. The data is validated server-side per template.
+data payload. The data is validated server-side per template. [Browse the
+templates](https://html2img.com/templates) to find a slug.
 
 ```php
 $response = $client->template('invoice', [
@@ -132,7 +147,8 @@ echo $response->url;
 ## Options
 
 Both `HtmlRequest` and `ScreenshotRequest` accept the following. Any option left
-null is omitted from the request, so the server applies its own default.
+null is omitted from the request, so the server applies its own default. The
+complete reference is in the [parameter docs](https://html2img.com/docs/parameters).
 
 | Option             | Type      | Notes                                                        |
 | ------------------ | --------- | ------------------------------------------------------------ |
@@ -173,7 +189,7 @@ $response->raw();            // array, the full decoded JSON payload
 Synchronous requests have a 30 second budget. For captures likely to exceed it,
 pass a `webhookUrl`. The API responds immediately with `status: "processing"`
 and `url: null`, then POSTs the final image URL to your endpoint once rendering
-finishes.
+finishes. See the [`webhook_url` docs](https://html2img.com/docs/parameters/webhook-url).
 
 ```php
 $response = $client->screenshot(new ScreenshotRequest(
@@ -229,9 +245,19 @@ try {
 | `ConnectionException`           | the request never reached a response.                 |
 | `Html2imgException`             | base type for all of the above.                       |
 
+## Other languages
+
+Anything that can make an HTTP request works with the API. There are worked
+guides for [Laravel](https://html2img.com/docs/usage/laravel),
+[Ruby on Rails](https://html2img.com/docs/usage/rails),
+[Python](https://html2img.com/docs/usage/python),
+[JavaScript and Node.js](https://html2img.com/docs/usage/javascript),
+[React](https://html2img.com/docs/usage/react) and
+[Vue](https://html2img.com/docs/usage/vue).
+
 ## Development
 
-This package uses [ddev](https://ddev.com) for a containerised PHP environment. It is optional, 
+This package uses [ddev](https://ddev.com) for a containerised PHP environment. It is optional,
 and you can use vanilla PHP or whatever you use for local dev if you prefer.
 
 ```bash
@@ -240,6 +266,10 @@ ddev exec vendor/bin/pest      # tests
 ddev exec vendor/bin/phpstan analyse
 ddev exec vendor/bin/pint --test
 ```
+
+## Links
+
+[Website](https://html2img.com) · [Documentation](https://html2img.com/docs) · [Templates](https://html2img.com/templates) · [Tools](https://html2img.com/tools) · [Features](https://html2img.com/features) · [Comparisons](https://html2img.com/compare) · [Articles](https://html2img.com/articles) · [Pricing](https://html2img.com/pricing)
 
 ## Licence
 
