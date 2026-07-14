@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Html2img\Enum\Format;
 use Html2img\Request\HtmlRequest;
 
 it('posts to /api/html with the api key header', function () {
@@ -43,6 +44,7 @@ it('maps every html option into the json body in snake_case', function () {
         webhookUrl: 'https://example.com/hook',
         msDelay: 500,
         waitForSelector: '.ready',
+        format: Format::Pdf,
     ));
 
     expect(lastRequestBody($history))->toBe([
@@ -55,6 +57,7 @@ it('maps every html option into the json body in snake_case', function () {
         'webhook_url' => 'https://example.com/hook',
         'ms_delay' => 500,
         'wait_for_selector' => '.ready',
+        'format' => 'pdf',
     ]);
 });
 

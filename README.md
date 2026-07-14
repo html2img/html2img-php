@@ -95,6 +95,7 @@ stylesheets and web fonts via `<link>` tags in the document head. See the
 [`html` parameter docs](https://html2img.com/docs/parameters/html) for the full input.
 
 ```php
+use Html2img\Enum\Format;
 use Html2img\Request\HtmlRequest;
 
 $response = $client->html(new HtmlRequest(
@@ -103,6 +104,7 @@ $response = $client->html(new HtmlRequest(
     width: 794,
     fullpage: true,
     dpi: 2,          // retina
+    format: Format::Png,
 ));
 ```
 
@@ -125,11 +127,33 @@ $response = $client->screenshot(new ScreenshotRequest(
 ));
 ```
 
+### Generate a PDF
+
+Set `format` to `Format::Pdf` on either request and the render comes back as an
+A4 portrait vector PDF instead of a PNG: text stays selectable and searchable,
+webfonts are embedded and long content paginates automatically. The API ignores
+`width`, `height`, `dpi`, `fullpage` and `selector` in PDF mode, and the
+response `url` points at a `.pdf` file. One credit, the same as an image. See
+the [`format` parameter docs](https://html2img.com/docs/parameters/format/).
+
+```php
+use Html2img\Enum\Format;
+use Html2img\Request\HtmlRequest;
+
+$response = $client->html(new HtmlRequest(
+    html: '<h1>Invoice #1042</h1><p>Due within 30 days.</p>',
+    format: Format::Pdf,
+));
+
+echo $response->url; // https://i.html2img.com/....pdf
+```
+
 ### Render a template
 
 `POST /api/v1/templates/{slug}`. Render one of your named templates from a JSON
 data payload. The data is validated server-side per template. [Browse the
-templates](https://html2img.com/templates) to find a slug.
+templates](https://html2img.com/templates) to find a slug. Templates output PNG
+only; `format` is not available on template renders.
 
 ```php
 $response = $client->template('invoice', [
@@ -158,6 +182,7 @@ complete reference is in the [parameter docs](https://html2img.com/docs/paramete
 | `webhookUrl`       | string    | Switch to async delivery (see below).                        |
 | `msDelay`          | int       | Wait this many milliseconds after load before capturing (1 to 5000). |
 | `waitForSelector`  | string    | Wait until this CSS selector appears before capturing.       |
+| `format`           | `Format`  | `Format::Png` (default) or `Format::Pdf`. PDF output is A4 portrait and ignores the sizing options above. |
 
 `ScreenshotRequest` also accepts `selector` (string) to crop the capture to a
 single element. `HtmlRequest` does not, since you control the markup.

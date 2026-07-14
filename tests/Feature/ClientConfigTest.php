@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Html2img\Enum\Format;
 use Html2img\Html2imgClient;
 use Html2img\Request\HtmlRequest;
 use Html2img\Request\ScreenshotRequest;
@@ -46,7 +47,7 @@ it('rejects empty required fields', function () {
 });
 
 it('accepts boundary values', function () {
-    $request = new HtmlRequest(html: '<h1>Hi</h1>', width: 1, height: 5000, dpi: 4, msDelay: 5000);
+    $request = new HtmlRequest(html: '<h1>Hi</h1>', width: 1, height: 5000, dpi: 4, msDelay: 5000, format: Format::Png);
 
     expect($request->toArray())->toBe([
         'html' => '<h1>Hi</h1>',
@@ -54,5 +55,6 @@ it('accepts boundary values', function () {
         'height' => 5000,
         'dpi' => 4,
         'ms_delay' => 5000,
+        'format' => 'png',
     ]);
 });
