@@ -7,7 +7,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/html2img/html2img-php)](https://packagist.org/packages/html2img/html2img-php)
 [![License](https://img.shields.io/packagist/l/html2img/html2img-php)](LICENSE)
 
-The official PHP client for the [html2img.com](https://html2img.com) API. Turn HTML and CSS into images, capture screenshots of live URLs, and render named templates, all returning a typed response object.
+The official PHP client for the [HTML to Image API](https://html2img.com). Turn HTML and CSS into images, capture screenshots of live URLs, and render named templates, all returning a typed response object.
 
 Every render runs in real Chrome, so flexbox, grid, custom properties, web fonts and inline JavaScript behave exactly as they do in the browser. The package is framework-agnostic and built on Guzzle, so it works in plain PHP and inside any framework. The full API reference lives in the [documentation](https://html2img.com/docs).
 
