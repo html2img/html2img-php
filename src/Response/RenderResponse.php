@@ -15,12 +15,16 @@ namespace Html2img\Response;
 final readonly class RenderResponse
 {
     /**
+     * @param  string|null  $expiresAt  When the hosted render expires, as an ISO 8601
+     *                                  string. Null on paid plans, where renders stay
+     *                                  hosted permanently; set on free-tier renders.
      * @param  array<string, mixed>  $raw  The full decoded JSON payload.
      */
     public function __construct(
         public bool $success,
         public ?string $id,
         public ?string $url,
+        public ?string $expiresAt,
         public ?int $creditsRemaining,
         public ?string $status,
         public ?string $message,
@@ -39,6 +43,7 @@ final readonly class RenderResponse
             success: (bool) ($data['success'] ?? false),
             id: isset($data['id']) ? (string) $data['id'] : null,
             url: isset($data['url']) ? (string) $data['url'] : null,
+            expiresAt: isset($data['expires_at']) ? (string) $data['expires_at'] : null,
             creditsRemaining: array_key_exists('credits_remaining', $data) && is_numeric($data['credits_remaining'])
                 ? (int) $data['credits_remaining']
                 : null,

@@ -11,6 +11,7 @@ it('parses a synchronous success envelope into a RenderResponse', function () {
         jsonResponse(200, [
             'success' => true,
             'id' => '550e8400-e29b-41d4-a716-446655440000',
+            'expires_at' => '2026-08-14T09:16:39+00:00',
             'credits_remaining' => 4999,
             'url' => 'https://i.html2img.com/abc123def456.png',
         ]),
@@ -22,9 +23,26 @@ it('parses a synchronous success envelope into a RenderResponse', function () {
         ->and($response->success)->toBeTrue()
         ->and($response->id)->toBe('550e8400-e29b-41d4-a716-446655440000')
         ->and($response->url)->toBe('https://i.html2img.com/abc123def456.png')
+        ->and($response->expiresAt)->toBe('2026-08-14T09:16:39+00:00')
         ->and($response->creditsRemaining)->toBe(4999)
         ->and($response->isProcessing())->toBeFalse()
         ->and($response->status)->toBeNull();
+});
+
+it('treats a null or absent expires_at as null', function () {
+    $client = mockClient([
+        jsonResponse(200, [
+            'success' => true,
+            'id' => '550e8400-e29b-41d4-a716-446655440000',
+            'expires_at' => null,
+            'credits_remaining' => 4999,
+            'url' => 'https://i.html2img.com/abc123def456.png',
+        ]),
+    ]);
+
+    $response = $client->html(new HtmlRequest(html: '<h1>Hi</h1>'));
+
+    expect($response->expiresAt)->toBeNull();
 });
 
 it('parses an async acceptance envelope', function () {

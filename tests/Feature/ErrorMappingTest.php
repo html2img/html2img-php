@@ -10,7 +10,6 @@ use Html2img\Exception\Html2imgException;
 use Html2img\Exception\InsufficientCreditsException;
 use Html2img\Exception\NotFoundException;
 use Html2img\Exception\NotSubscribedException;
-use Html2img\Exception\RateLimitException;
 use Html2img\Exception\ServerException;
 use Html2img\Exception\TimeoutException;
 use Html2img\Exception\ValidationException;
@@ -33,7 +32,6 @@ dataset('error matrix', [
     'credits 402' => [402, ['error' => 'Insufficient credits', 'code' => 'insufficient_credits', 'credits_remaining' => 0], InsufficientCreditsException::class],
     'forbidden 403' => [403, ['error' => 'You must be subscribed to use this service', 'code' => 'not_subscribed'], NotSubscribedException::class],
     'not found 404' => [404, ['error' => 'Template not found', 'code' => 'template_not_found'], NotFoundException::class],
-    'rate limit 429' => [429, ['error' => 'Too many requests'], RateLimitException::class],
     'timeout 504' => [504, ['error' => 'Request timed out', 'code' => 'timeout_error'], TimeoutException::class],
     'server 500' => [500, ['error' => 'Service error', 'code' => 'service_error'], ServerException::class],
     'server 502' => [502, ['error' => 'Bad gateway'], ServerException::class],

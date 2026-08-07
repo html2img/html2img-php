@@ -198,6 +198,7 @@ Every method returns a readonly `Html2img\Response\RenderResponse`:
 $response->success;          // bool
 $response->id;               // string|null, the render id
 $response->url;              // string|null, the CDN URL of the image
+$response->expiresAt;        // string|null, ISO 8601 expiry of a free-tier render; null on paid plans
 $response->creditsRemaining; // int|null, credits left after this call
 $response->status;           // string|null, "processing" for async jobs
 $response->message;          // string|null
@@ -261,7 +262,6 @@ try {
 | `NotSubscribedException`        | 403, no active subscription.                          |
 | `NotFoundException`             | 404, for example an unknown template slug.            |
 | `ValidationException`           | 400 or 422, with `details()` per field.               |
-| `RateLimitException`            | 429, rate or quota exceeded.                          |
 | `TimeoutException`              | 504, the synchronous render budget was exceeded.      |
 | `ServerException`               | 5xx, an unexpected renderer error.                    |
 | `ConnectionException`           | the request never reached a response.                 |

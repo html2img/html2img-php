@@ -16,7 +16,6 @@ use Html2img\Exception\Html2imgException;
 use Html2img\Exception\InsufficientCreditsException;
 use Html2img\Exception\NotFoundException;
 use Html2img\Exception\NotSubscribedException;
-use Html2img\Exception\RateLimitException;
 use Html2img\Exception\ServerException;
 use Html2img\Exception\TimeoutException;
 use Html2img\Exception\ValidationException;
@@ -141,7 +140,6 @@ final class Html2imgClient
             $status === 402 => new InsufficientCreditsException($message, $status, $payload, $errorCode, $previous),
             $status === 403 => new NotSubscribedException($message, $status, $payload, $errorCode, $previous),
             $status === 404 => new NotFoundException($message, $status, $payload, $errorCode, $previous),
-            $status === 429 => new RateLimitException($message, $status, $payload, $errorCode, $previous),
             $status === 408, $status === 504 => new TimeoutException($message, $status, $payload, $errorCode, $previous),
             $status >= 500 => new ServerException($message, $status, $payload, $errorCode, $previous),
             default => new Html2imgException($message, $status, $payload, $errorCode, $previous),
