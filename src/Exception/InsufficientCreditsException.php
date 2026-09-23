@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Html2img\Exception;
 
 /**
- * Thrown on a 402 response: the account is authenticated but out of credits
- * for the current billing period. The API `code` is `insufficient_credits`.
+ * Thrown on a 402 response: the account is authenticated but out of credits.
+ * Free accounts have a one-off allowance of 50 credits; paid plans renew each
+ * billing period. The API `code` is `insufficient_credits`.
  */
 final class InsufficientCreditsException extends Html2imgException
 {
