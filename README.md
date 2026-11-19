@@ -1,6 +1,6 @@
-[![html2img — HTML to image API, rendered in real Chrome](https://html2img.com/og-image.png)](https://html2img.com)
+[![HTML to Image (html2img): HTML to image API, rendered in real Chrome](https://html2img.com/og-image.png)](https://html2img.com)
 
-# html2img PHP client
+# HTML to Image (html2img) PHP client
 
 [![Packagist Version](https://img.shields.io/packagist/v/html2img/html2img-php)](https://packagist.org/packages/html2img/html2img-php)
 [![PHP Version](https://img.shields.io/packagist/php-v/html2img/html2img-php)](https://packagist.org/packages/html2img/html2img-php)
